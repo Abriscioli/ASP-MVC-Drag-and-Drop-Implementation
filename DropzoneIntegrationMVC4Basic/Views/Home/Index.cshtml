@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<div class="jumbotron">
+    <form action="~/Home/SaveUploadedFile" method="post" enctype="multipart/form-data" class="dropzone" id="dropzoneForm" >
+        <div class="dz-message">
+            <span>Your Custom Message</span>
+        </div>
+        <div class="fallback" id="uploadme">
+            <input name="file" type="file" multiple />
+            <input type="submit" value="Upload" />
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    //File Upload response from the server
+    debugger;
+    Dropzone.autoDiscover = false;
+    new Dropzone("#dropzoneForm", {
+        maxFiles: 1,
+        dictDefaultMessage: "Drag your images",
+        addRemoveLinks: true,
+        init: function () {
+            this.on("maxfilesexceeded", function (file) {
+                alert("No more files please!");
+                this.removeFile(file);
+            });            
+        }
+    });
+</script>
+<style type="text/css">
+    #dropzoneForm {
+        background: gray;
+        border: black dashed 3px;
+        width: 200px;
+        padding: 50px;
+        text-align: center;
+        color: white
+    }
+</style>
