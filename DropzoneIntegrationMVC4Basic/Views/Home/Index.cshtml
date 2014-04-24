@@ -11,25 +11,55 @@
         </div>
         <div class="fallback" id="uploadme">
             <input name="file" type="file" multiple />
-            <input type="submit" value="Upload" />
         </div>
+        <div id="previews" class="dz-previews"></div>
+        <div>
+            <input type="button" value="Upload" id="upload" />
+        </div>
+        
     </form>
 </div>
 <script type="text/javascript">
     //File Upload response from the server
     debugger;
     Dropzone.autoDiscover = false;
-    new Dropzone("#dropzoneForm", {
+    var myDropzone = new Dropzone("#dropzoneForm", {
         maxFiles: 1,
         dictDefaultMessage: "Drag your images",
+        dictInvalidFileType: "File not accepted",
+        previewsContainer: "#previews",
         addRemoveLinks: true,
+        thumbnailWidth: "80",
+        thumbnailHeight: "80",
+        autoProcessQueue: false,
+        acceptedFiles: "image/*",
         init: function () {
             this.on("maxfilesexceeded", function (file) {
                 alert("No more files please!");
                 this.removeFile(file);
             });            
         }
+        //init: function () {
+        //    this.on("maxfilesexceeded", function (file) {
+        //        alert("No more files please!");
+        //        this.removeFile(file);
+        //    });
+        //}
     });
+
+    $('#upload').click(function () {
+        myDropzone.processQueue();
+    });
+
+    myDropzone.on("complete", function (file) {
+        myDropzone.removeFile(file);
+    });
+
+    myDropzone.on("error", function (file) {
+        alert(message);
+    });
+
+
 </script>
 <style type="text/css">
     #dropzoneForm {
